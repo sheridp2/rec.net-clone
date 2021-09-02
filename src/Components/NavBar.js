@@ -9,9 +9,15 @@ import {
   Navbar,
 } from "react-bootstrap";
 
+import { useGlobalContext } from "../context";
+
 import { BiCalendarEvent, BiBell, BiHome } from "react-icons/bi";
 
 export default function NavBar() {
+  const { loggedIn, setLoggedIn } = useGlobalContext();
+  const ToggleLoggin = () => {
+    setLoggedIn(!loggedIn);
+  };
   return (
     <Navbar bg="light" sticky="top" className="nav-main">
       <Container>
@@ -36,14 +42,18 @@ export default function NavBar() {
               <BiCalendarEvent size={20} style={{ marginLeft: 10 }} />
             </a>
           </Col>
-          <Col>
-            <BiBell size={20} style={{ marginLeft: 10 }} />
-          </Col>
-          {/* <Col>LOGIN</Col> */}
-          {/* <Col>
-            <Button variant="outline-danger">Download</Button>
-          </Col> */}
         </Row>
+        <Navbar.Collapse className="justify-content-end">
+          <Navbar.Text>
+            <Col>
+              {loggedIn ? (
+                <Button onClick={ToggleLoggin}>Logout</Button>
+              ) : (
+                <Button onClick={ToggleLoggin}>Login</Button>
+              )}
+            </Col>
+          </Navbar.Text>
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );

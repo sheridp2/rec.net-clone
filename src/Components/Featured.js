@@ -20,7 +20,7 @@ export default function Featured() {
 
   const fetchPosts = async () => {
     await fetch(
-      "https://api.rec.net/api/images/v3/feed/global?skip=0&take=10&since=2021-08-16T17%3A28%3A38.384Z"
+      "https://api.rec.net/api/images/v3/feed/global?skip=0&take=10"
     ).then((response) =>
       response.json().then((data) => {
         fetchComments(data);
@@ -76,7 +76,7 @@ export default function Featured() {
                   <ul>
                     {comments.map((comment) => {
                       return (
-                        <li>
+                        <li key={comment.SavedImageCommentId}>
                           {comment.PlayerId} : {comment.Comment}
                         </li>
                       );
